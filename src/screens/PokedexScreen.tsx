@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, Button, SafeAreaView } from "react-native";
 import { getPokemonApi, getPokemonDetailByUrlApi } from "../api/pokemon";
+import PokemonList from "../components/PokemonList";
+
+/*interface pokemonDetail { 
+    id: number,
+    name: string,
+    sprites: any,
+    types: any[],
+    moves: any[],
+  }
+*/
 
 export default function PokemonScreen() { 
   
-  const [pokemons, setPokemons] = useState([])
+  const [pokemons, setPokemons] = useState<any>([])
 
   useEffect(()=>{
     (async () => {
@@ -14,13 +24,13 @@ export default function PokemonScreen() {
 
   const loadPokemons = async() => {
     try{
-      let res = await getPokemonApi()
-      const pokemons = res.results
+      let res:any = await getPokemonApi()
+      res = res.results
       //console.log('pokemon19',res.results)
       const pokemonsArray = []
-        for await (const pokemon of pokemons){
+        for await (const pokemon of res){
           //console.log('pokemon23', pokemon)
-          const pokemonDetail = await getPokemonDetailByUrlApi(pokemon.url)
+          const pokemonDetail: any = await getPokemonDetailByUrlApi(pokemon.url)
           //console.log('pokemonDetail25',pokemonDetail)
           pokemonsArray.push({
             id: pokemonDetail.id,
@@ -33,7 +43,7 @@ export default function PokemonScreen() {
           })
         }
       setPokemons([...pokemons, ...pokemonsArray])
-      console.log('pokemons36',pokemonsArray)
+      //console.log('pokemons44',pokemonsArray)
     }catch(e){
       console.log(e)
     }
@@ -41,7 +51,7 @@ export default function PokemonScreen() {
 
   return (
     <SafeAreaView>
-      <Text> pokedex screen</Text>
+      <PokemonList pokemons={pokemons} />
     </SafeAreaView>
   );
 
