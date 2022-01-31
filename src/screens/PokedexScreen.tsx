@@ -31,11 +31,11 @@ export default function PokemonScreen() {
         for await (const pokemon of res){
           //console.log('pokemon23', pokemon)
           const pokemonDetail: any = await getPokemonDetailByUrlApi(pokemon.url)
-          //console.log('pokemonDetail25',pokemonDetail)
+          console.log('pokemonDetail25',pokemonDetail)
           pokemonsArray.push({
             id: pokemonDetail.id,
             name: pokemonDetail.name,
-            image: pokemonDetail.sprites.other['official-artwork'].font_default,
+            image: pokemonDetail.sprites.other["official-artwork"].front_default,
             type1: pokemonDetail.types[0].type.name ? pokemonDetail.types[0].type.name : '',
             type2: pokemonDetail.types[1].type.name ? pokemonDetail.types[1].type.name : '',
             move1: pokemonDetail.moves[0].move ? pokemonDetail.moves[0].move: '',
