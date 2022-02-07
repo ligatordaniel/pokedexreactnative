@@ -1,6 +1,6 @@
 import { BASE_URL } from "../utils/baseUrls"
 
-const url = `${BASE_URL}/pokemon?limit=3&offset=0`
+const url = `${BASE_URL}/pokemon?limit=9&offset=0`
 
 export async function getPokemonApi() {
   try{

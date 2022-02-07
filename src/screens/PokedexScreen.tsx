@@ -37,7 +37,7 @@ export default function PokemonScreen() {
             name: pokemonDetail.name,
             image: pokemonDetail.sprites.other["official-artwork"].front_default,
             type1: pokemonDetail.types[0].type.name ? pokemonDetail.types[0].type.name : '',
-            type2: pokemonDetail.types[1].type.name ? pokemonDetail.types[1].type.name : '',
+            //type2: pokemonDetail.types[1].type.name ? pokemonDetail.types[1].type.name : '',
             move1: pokemonDetail.moves[0].move ? pokemonDetail.moves[0].move: '',
             move2: pokemonDetail.moves[1].move ? pokemonDetail.moves[1].move: ''
           })
