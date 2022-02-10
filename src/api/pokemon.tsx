@@ -24,7 +24,7 @@ export async function getPokemonDetailByUrlApi(url:any) {
   }
 }
 
-export async function nextPage(page:number) {
+export async function getNextPage(page:number) {
   const urlPage = `${BASE_URL}/pokemon?limit=20&offset=${page}`
   try{
     let res = await fetch(urlPage)

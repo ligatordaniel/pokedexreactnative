@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native";
-import { getPokemonApi, getPokemonDetailByUrlApi } from "../api/pokemon";
+import { getPokemonApi, getPokemonDetailByUrlApi, getNextPage } from "../api/pokemon";
 import PokemonList from "../components/PokemonList";
 
 /*interface pokemonDetail { 
@@ -14,8 +14,9 @@ import PokemonList from "../components/PokemonList";
 
 export default function PokemonScreen() { 
   
+  //estado, una funciona actualizadora del estado, su valor inicial
   const [pokemons, setPokemons] = useState<any>([])
-  //const [nextPage, setNextPage] = useState(null)
+  const [nextPage, setNextPage] = useState(0)
 
   useEffect(()=>{
     (async () => {
@@ -51,10 +52,16 @@ export default function PokemonScreen() {
     }
   }
 
+  const loadNextPage = async() => {
+    setNextPage(nextPage+20)
+  }
+
+
   return (
     <SafeAreaView>
       <PokemonList pokemons={pokemons} loadPokemons={loadPokemons}/>
     </SafeAreaView>
   );
+
 
 }
