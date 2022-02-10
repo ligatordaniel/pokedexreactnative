@@ -11,15 +11,7 @@ const Tab = createBottomTabNavigator();
 export default function NavigationTab(){
 
   return (
-    <Tab.Navigator>
-
-      <Tab.Screen 
-        name="Pokedex" 
-        component={PokedexScreen} 
-        options={{
-          tabBarLabel: () => renderImgPokeball()
-        }}
-      />
+    <Tab.Navigator initialRouteName='Pokedex'>
 
       <Tab.Screen 
         name="Favorite" 
@@ -31,7 +23,15 @@ export default function NavigationTab(){
             <Icon name="heart"  color= {color} size={size}/>
           ),
         }}
-      /> 
+      />
+
+      <Tab.Screen 
+        name="Pokedex" 
+        component={PokedexScreen} 
+        options={{
+          tabBarLabel: () => renderImgPokeball()
+        }}
+      />
 
       <Tab.Screen 
         name="Account" 
