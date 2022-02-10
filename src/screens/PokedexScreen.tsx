@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Button, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native";
 import { getPokemonApi, getPokemonDetailByUrlApi } from "../api/pokemon";
 import PokemonList from "../components/PokemonList";
 
@@ -15,6 +15,7 @@ import PokemonList from "../components/PokemonList";
 export default function PokemonScreen() { 
   
   const [pokemons, setPokemons] = useState<any>([])
+  //const [nextPage, setNextPage] = useState(null)
 
   useEffect(()=>{
     (async () => {
@@ -25,13 +26,14 @@ export default function PokemonScreen() {
   const loadPokemons = async() => {
     try{
       let res:any = await getPokemonApi()
+      //setNextPage(res.next) QUEDE AQUI
       res = res.results
       //console.log('pokemon19',res.results)
       const pokemonsArray = []
         for await (const pokemon of res){
           //console.log('pokemon23', pokemon)
           const pokemonDetail: any = await getPokemonDetailByUrlApi(pokemon.url)
-          console.log('pokemonDetail25',pokemonDetail)
+          //console.log('pokemonDetail25',pokemonDetail)
           pokemonsArray.push({
             id: pokemonDetail.id,
             name: pokemonDetail.name,
@@ -51,7 +53,7 @@ export default function PokemonScreen() {
 
   return (
     <SafeAreaView>
-      <PokemonList pokemons={pokemons} />
+      <PokemonList pokemons={pokemons} loadPokemons={loadPokemons}/>
     </SafeAreaView>
   );
 

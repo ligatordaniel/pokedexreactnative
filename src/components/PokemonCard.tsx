@@ -3,22 +3,28 @@ import { Text, View, StyleSheet, Image, TouchableWithoutFeedback } from "react-n
 
 export default function PokemonCard(props: any) {
   const pokemons = props.pokemon;
-  console.log("PokemonCard props", props);
-  console.log("PokemonCard props", pokemons.name);
-  const bgStyle = { backgroudColor: colorByType(pokemons.type1), ...styles.container};
-
+  //console.log("PokemonCard props", props)
+  
   const goToPokemon = () => {
     //console.log(`vamos al pokemon ${pokemons.name}`);
   };
  
   return (
     <TouchableWithoutFeedback onPress={goToPokemon}>
-      <View style={bgStyle}>
-        <View style={styles.topContainer}>
-          <Text style={styles.topText}>{pokemons.name}</Text>
-          <Text style={styles.topText}>{pokemons.id}</Text> 
+      <View style={styles.container}>
+        <View style={({
+          backgroundColor: colorByType(pokemons.type1),
+          flex: 1,
+          height: 130,
+          padding : 10,
+          borderRadius: 15,
+        })}>
+          <View style={styles.topCard}>
+            <Text style={styles.topText}>{pokemons.name}</Text>
+            <Text style={styles.topText}>{pokemons.id}</Text> 
+          </View>
+          <Image source={{ uri: pokemons.image }} style={styles.image} />
         </View>
-        <Image source={{ uri: pokemons.image }} style={styles.image} />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -27,26 +33,23 @@ export default function PokemonCard(props: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 130,
-    padding : 10,
-    margin: 1,
-    borderRadius: 15,
+    padding: 10,
   },
-  topContainer: {
+  topCard: {
     flex: 2,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    textTransform: "capitalize",
   },
   topText: {
     fontSize: 15,
     color: "white",
+    textTransform: "capitalize",
   },
   image: {
-    width: 100,
-    height: 100,
-    marginHorizontal: "auto",
+    width: 90,
+    height: 90,
+    alignSelf: 'center',
   },
 });
 
