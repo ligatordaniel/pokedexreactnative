@@ -6,7 +6,7 @@ export default function PokemonCard(props: any) {
   //console.log("PokemonCard props", props)
   
   const goToPokemon = () => {
-    //console.log(`vamos al pokemon ${pokemons.name}`);
+    console.log(`vamos al pokemon ${pokemons.name}`);
   };
  
   return (

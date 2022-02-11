@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native";
-import { getPokemonApi, getPokemonDetailByUrlApi, getNextPage } from "../api/pokemon";
+import { getPokemonApi, getPokemonDetailByUrlApi } from "../api/pokemon";
 import PokemonList from "../components/PokemonList";
 
 /*interface pokemonDetail { 
@@ -16,7 +16,7 @@ export default function PokemonScreen() {
   
   //estado, una funciona actualizadora del estado, su valor inicial
   const [pokemons, setPokemons] = useState<any>([])
-  const [nextPage, setNextPage] = useState(0)
+  const [nextUrl, setNextUrl] = useState('')
 
   useEffect(()=>{
     (async () => {
@@ -26,15 +26,19 @@ export default function PokemonScreen() {
 
   const loadPokemons = async() => {
     try{
-      let res:any = await getPokemonApi()
-      //setNextPage(res.next) QUEDE AQUI
+      console.log(nextUrl)
+      let res:any = await getPokemonApi(nextUrl)
+      setNextUrl(res.next) // url de la siguiente pagina
       res = res.results
-      //console.log('pokemon19',res.results)
+      if(!res.next){
+        setNextUrl('No more pages')
+      }
+
+
       const pokemonsArray = []
         for await (const pokemon of res){
-          //console.log('pokemon23', pokemon)
           const pokemonDetail: any = await getPokemonDetailByUrlApi(pokemon.url)
-          //console.log('pokemonDetail25',pokemonDetail)
+
           pokemonsArray.push({
             id: pokemonDetail.id,
             name: pokemonDetail.name,
@@ -52,14 +56,10 @@ export default function PokemonScreen() {
     }
   }
 
-  const loadNextPage = async() => {
-    setNextPage(nextPage+20)
-  }
-
 
   return (
     <SafeAreaView>
-      <PokemonList pokemons={pokemons} loadPokemons={loadPokemons}/>
+      <PokemonList pokemons={pokemons} loadPokemons={loadPokemons} />
     </SafeAreaView>
   );
 
